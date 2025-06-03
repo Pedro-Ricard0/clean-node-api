@@ -4,7 +4,7 @@ const config = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   testEnvironment: 'node',
-  collectCoverageFrom: ['']
+  collectCoverageFrom: ['**/src/**/*.js']
 
 }
 

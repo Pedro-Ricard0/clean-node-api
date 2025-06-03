@@ -4,7 +4,7 @@
   "description": "Construindo API REST com NODE.JS utilizando, Clean Architecture e Design Patterns.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --silent --colors --noStackTrace --passWithNoTests ",
+    "test": "jest --watchAll --silent --colors --noStackTrace --passWithNoTests ",
     "test:unit": "npm test -- --watchAll -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
