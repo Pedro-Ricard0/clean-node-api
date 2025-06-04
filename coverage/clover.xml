@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1748968477870" clover="3.2.0">
-  <project timestamp="1748968477870" name="All files">
-    <metrics statements="97" coveredstatements="97" conditionals="19" coveredconditionals="19" methods="10" coveredmethods="10" elements="126" coveredelements="126" complexity="0" loc="97" ncloc="97" packages="3" files="7" classes="7"/>
+<coverage generated="1749075778756" clover="3.2.0">
+  <project timestamp="1749075778756" name="All files">
+    <metrics statements="81" coveredstatements="81" conditionals="17" coveredconditionals="17" methods="8" coveredmethods="8" elements="106" coveredelements="106" complexity="0" loc="81" ncloc="81" packages="3" files="5" classes="5"/>
     <package name="errors">
-      <metrics statements="35" coveredstatements="35" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <metrics statements="19" coveredstatements="19" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="index.js" path="C:\Users\moise\Downloads\Nova pasta\clean-node-api\src\presentation\errors\index.js">
-        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -13,28 +13,6 @@
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-      </file>
-      <file name="invalid-param-error.js" path="C:\Users\moise\Downloads\Nova pasta\clean-node-api\src\presentation\errors\invalid-param-error.js">
-        <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-      </file>
-      <file name="missing-param-error.js" path="C:\Users\moise\Downloads\Nova pasta\clean-node-api\src\presentation\errors\missing-param-error.js">
-        <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
       </file>
       <file name="server-error.js" path="C:\Users\moise\Downloads\Nova pasta\clean-node-api\src\presentation\errors\server-error.js">
         <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
