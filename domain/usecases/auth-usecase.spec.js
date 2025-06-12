@@ -29,7 +29,6 @@ const makeSut = () => {
   class LoadUserByEmailRepository {
     async load (email) {
       this.email = email
-      return null
     }
   }
   const loadUserByEmailRepositorySpy = new LoadUserByEmailRepository()
