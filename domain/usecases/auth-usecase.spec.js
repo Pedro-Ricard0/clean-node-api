@@ -18,7 +18,7 @@ const makeTokenGenerator = () => {
   class TokenGeneratorSpy {
     async generate (userId) {
       this.userId = userId
-      return this.accessToken
+      return this.acessToken
     }
   }
   const tokenGeneratorSpy = new TokenGeneratorSpy()
@@ -110,5 +110,12 @@ describe('Auth UseCase', () => {
     const { sut, loadUserByEmailRepositorySpy, tokenGeneratorSpy } = makeSut()
     await sut.auth('valid_email@mail.com', 'valid_password')
     expect(tokenGeneratorSpy.userId).toBe(loadUserByEmailRepositorySpy.user.id)
+  })
+
+  test('Should return an acessToken if correct credentials are provided ', async () => {
+    const { sut, tokenGeneratorSpy } = makeSut()
+    const acessToken = await sut.auth('valid_email@mail.com', 'valid_password')
+    expect(acessToken).toBe(tokenGeneratorSpy.acessToken)
+    expect(acessToken).toBeTruthy()
   })
 })
