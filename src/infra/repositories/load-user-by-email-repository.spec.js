@@ -1,15 +1,23 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
+const { MongoClient } = require('mongodb')
+
 let mongoServer
 let client
 let db
-const { MongoClient } = require('mongodb')
+
 class LoadUserByEmailRepository {
   constructor (userModel) {
     this.userModel = userModel
   }
 
   async load (email) {
-    return await this.userModel.findOne({ email })
+    return await this.userModel.findOne({
+      email
+    }, {
+      projection: {
+        password: 1
+      }
+    })
   }
 }
 
@@ -27,11 +35,7 @@ describe('LoadUserByEmail Repository', () => {
     mongoServer = await MongoMemoryServer.create()
     const uri = mongoServer.getUri()
 
-    client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-
+    client = await MongoClient.connect(uri)
     db = client.db()
   })
 
@@ -52,10 +56,22 @@ describe('LoadUserByEmail Repository', () => {
 
   test('Should return a user if user is found', async () => {
     const { sut, userModel } = makeSut()
-    await userModel.insertOne({
-      email: 'valid_email@mail.com'
-    })
+
+    const fakeUserData = {
+      email: 'valid_email@mail.com',
+      name: 'any_name',
+      age: 50,
+      state: 'any_state',
+      password: 'hashed_password'
+    }
+
+    await userModel.insertOne(fakeUserData)
+
     const user = await sut.load('valid_email@mail.com')
-    expect(user.email).toBe('valid_email@mail.com')
+
+    expect(user).toMatchObject({
+      password: 'hashed_password'
+    })
+    expect(user._id).toBeDefined()
   })
 })
