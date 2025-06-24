@@ -65,7 +65,6 @@ const makeLoadUserByEmailRepositoryWithError = () => {
       throw new Error()
     }
   }
-
   return new LoadUserByEmailRepositorySpy()
 }
 
@@ -73,18 +72,31 @@ const makeSut = () => {
   const encrypterSpy = makeEncrypter()
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
   const tokenGeneratorSpy = makeTokenGenerator()
+  const updateAcessTokenRepositorySpy = makeUpdateAcessTokenRepository()
   const sut = new AuthUseCase({
     loadUserByEmailRepository: loadUserByEmailRepositorySpy,
     encrypter: encrypterSpy,
-    tokenGenerator: tokenGeneratorSpy
+    tokenGenerator: tokenGeneratorSpy,
+    updateAcessTokenRepository: updateAcessTokenRepositorySpy
   })
 
   return {
     sut,
     loadUserByEmailRepositorySpy,
     encrypterSpy,
-    tokenGeneratorSpy
+    tokenGeneratorSpy,
+    updateAcessTokenRepositorySpy
   }
+}
+
+const makeUpdateAcessTokenRepository = () => {
+  class UpdateAcessTokenRepositorySpy {
+    async update (userId, acessToken) {
+      this.userId = userId
+      this.acessToken = acessToken
+    }
+  }
+  return new UpdateAcessTokenRepositorySpy()
 }
 
 describe('Auth UseCase', () => {
@@ -140,6 +152,13 @@ describe('Auth UseCase', () => {
     expect(acessToken).toBeTruthy()
   })
 
+  test('Should call UpdateAcessTokenRepository with correct values', async () => {
+    const { sut, loadUserByEmailRepositorySpy, updateAcessTokenRepositorySpy, tokenGeneratorSpy } = makeSut()
+    await sut.auth('valid_email@mail.com', 'valid_password')
+    expect(updateAcessTokenRepositorySpy.userId).toBe(loadUserByEmailRepositorySpy.user.id)
+    expect(updateAcessTokenRepositorySpy.acessToken).toBe(tokenGeneratorSpy.acessToken)
+  })
+
   test('Should throw if invalid dependecies are provided', async () => {
     const invalid = {}
     const loadUserByEmailRepository = makeLoadUserByEmailRepository()
@@ -169,7 +188,7 @@ describe('Auth UseCase', () => {
     }
   })
 
-  test('Should throw if dependecy throws', async () => {
+  test('Should throw if any dependecy throws', async () => {
     const loadUserByEmailRepository = makeLoadUserByEmailRepository()
     const encrypter = makeEncrypter()
     const suts = [].concat(
