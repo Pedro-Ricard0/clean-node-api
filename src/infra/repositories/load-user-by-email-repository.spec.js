@@ -1,10 +1,8 @@
-const { MongoMemoryServer } = require('mongodb-memory-server')
-const { MongoClient } = require('mongodb')
-const LoadUserByEmailRepository = require('./load-user-by-email-repository.js')
-let client, db, mongoServer
+const MongoHelper = require('../helpers/mongo-helper')
+const LoadUserByEmailRepository = require('./load-user-by-email-repository')
 
 const makeSut = () => {
-  const userModel = db.collection('users')
+  const userModel = MongoHelper.getCollection('users')
   const sut = new LoadUserByEmailRepository(userModel)
   return {
     userModel,
@@ -14,20 +12,15 @@ const makeSut = () => {
 
 describe('LoadUserByEmail Repository', () => {
   beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create()
-    const uri = mongoServer.getUri()
-
-    client = await MongoClient.connect(uri)
-    db = client.db()
+    await MongoHelper.connect()
   })
 
   afterAll(async () => {
-    await client.close()
-    await mongoServer.stop()
+    await MongoHelper.disconnect()
   })
 
   beforeEach(async () => {
-    await db.collection('users').deleteMany({})
+    await MongoHelper.clearCollection('users')
   })
 
   test('Should return null if no user is found', async () => {
