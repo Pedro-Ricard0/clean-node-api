@@ -1,25 +1,7 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const { MongoClient } = require('mongodb')
-
-let mongoServer
-let client
-let db
-
-class LoadUserByEmailRepository {
-  constructor (userModel) {
-    this.userModel = userModel
-  }
-
-  async load (email) {
-    return await this.userModel.findOne({
-      email
-    }, {
-      projection: {
-        password: 1
-      }
-    })
-  }
-}
+const LoadUserByEmailRepository = require('./load-user-by-email-repository.js')
+let client, db, mongoServer
 
 const makeSut = () => {
   const userModel = db.collection('users')
