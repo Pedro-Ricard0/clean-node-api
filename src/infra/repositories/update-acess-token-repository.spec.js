@@ -46,4 +46,18 @@ describe('UpdateAcessToken Repository', () => {
 
     expect(updatedUser.acessToken).toBe('valid_token')
   })
+
+  test('Should throw if no userModel is provided', async () => {
+    const sut = new UpdateAcessTokenRepository()
+    const userModel = MongoHelper.getCollection('users')
+    const result = await userModel.insertOne({
+      email: 'valid_email@mail.com',
+      name: 'any_name',
+      age: 50,
+      state: 'any_state',
+      password: 'hashed_password'
+    })
+    const promise = sut.update(result.insertedId, 'valid_token')
+    await expect(promise).rejects.toThrow()
+  })
 })
