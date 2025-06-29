@@ -20,7 +20,10 @@ module.exports = {
     return db.collection(name).deleteMany({})
   },
 
-  getDb () {
+  async getDb () {
+    if (!client || !client.topology || client.topology.isDestroyed()) {
+      await this.connect()
+    }
     return db
   },
 
